@@ -12,11 +12,11 @@ wget https://data.gharchive.org/2021-01-15-0.json.gz
 ```
 * Make sure to upload all the files to s3.
 ```
-aws s3 rm s3://aigithub/landing/ghactivity/ \
+aws s3 rm s3://tianchi-emr-test-bucket/aigithub/landing/ghactivity/ \
     --recursive
 
 aws s3 cp ~/mastering-emr/data/itv-github/landing/ghactivity \
-    s3://aigithub/landing/ghactivity \
+    s3://tianchi-emr-test-bucket/aigithub/landing/ghactivity \
     --recursive
 ```
 * Create a Python program by name **read.py**. We will create a function by name **from_files**. It reads the data from files into Dataframe and returns it.
@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
 ```
 export ENVIRON=DEV
-export SRC_DIR=s3://aigithub/landing/ghactivity
+export SRC_DIR=s3://tianchi-emr-test-bucket/aigithub/landing/ghactivity
 export SRC_FILE_PATTERN=2021-01-15
 export SRC_FILE_FORMAT=json
 

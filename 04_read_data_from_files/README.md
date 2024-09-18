@@ -15,7 +15,7 @@ wget https://data.gharchive.org/2021-01-15-0.json.gz
 aws s3 rm s3://tianchi-emr-test-bucket/aigithub/landing/ghactivity/ \
     --recursive
 
-aws s3 cp ~/mastering-emr/data/itv-github/landing/ghactivity \
+aws s3 cp ~/emr-udemy/data/itv-github/landing/ghactivity \
     s3://tianchi-emr-test-bucket/aigithub/landing/ghactivity \
     --recursive
 ```

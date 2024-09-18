@@ -1,6 +1,5 @@
 def to_files(df, tgt_dir, file_format):
-    df.coalesce(16). \
-        write. \
+    df.write. \
         partitionBy('year', 'month', 'dayofmonth'). \
         mode('append'). \
         format(file_format). \

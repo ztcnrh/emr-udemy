@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
 ```
 export ENVIRON=DEV
-export SRC_DIR=s3://aigithub/landing/ghactivity
+export SRC_DIR=s3://tianchi-emr-test-bucket/aigithub/landing/ghactivity
 export SRC_FILE_PATTERN=2021-01-15
 export SRC_FILE_FORMAT=json
 

@@ -40,16 +40,16 @@ wget https://data.gharchive.org/2021-01-15-{0..23}.json.gz
 * Copy the files into HDFS landing folders.
 
 ```shell script
-aws s3 rm s3://aigithub/landing/ghactivity \
+aws s3 rm s3://tianchi-emr-test-bucket/aigithub/landing/ghactivity \
     --recursive
-aws s3 rm s3://aigithub/emrraw/ghactivity \
+aws s3 rm s3://tianchi-emr-test-bucket/aigithub/emrraw/ghactivity \
     --recursive
-aws s3 cp ~/mastering-emr/data/itv-github/landing/ghactivity \
-    s3://aigithub/landing/ghactivity \
+aws s3 cp ~/emr-udemy/data/itv-github/landing/ghactivity \
+    s3://tianchi-emr-test-bucket/aigithub/landing/ghactivity \
     --recursive
 
 # Validating Files in HDFS
-aws s3 ls s3://aigithub/landing/ghactivity \
+aws s3 ls s3://tianchi-emr-test-bucket/aigithub/landing/ghactivity \
     --recursive|grep json.gz|wc -l
 ```
 
@@ -61,9 +61,9 @@ aws s3 ls s3://aigithub/landing/ghactivity \
 
 ```shell script
 export ENVIRON=PROD
-export SRC_DIR=s3://aigithub/landing/ghactivity
+export SRC_DIR=s3://tianchi-emr-test-bucket/aigithub/landing/ghactivity
 export SRC_FILE_FORMAT=json
-export TGT_DIR=s3://aigithub/emrraw/ghactivity
+export TGT_DIR=s3://tianchi-emr-test-bucket/aigithub/emrraw/ghactivity
 export TGT_FILE_FORMAT=parquet
 
 export PYSPARK_PYTHON=python3
@@ -90,14 +90,14 @@ spark-submit --master yarn \
 * Check for files in the target location. 
 
 ```shell script
-aws s3 ls s3://aigithub/emrraw/ghactivity \
+aws s3 ls s3://tianchi-emr-test-bucket/aigithub/emrraw/ghactivity \
     --recursive
 ```
 
 * We can use `pyspark2 --master yarn` to launch Pyspark and run the below code to validate.
 
 ```python
-src_file_path = 's3://aigithub/landing/ghactivity'
+src_file_path = 's3://tianchi-emr-test-bucket/aigithub/landing/ghactivity'
 src_df = spark.read.json(src_file_path)
 src_df.printSchema()
 src_df.show()
@@ -105,7 +105,7 @@ src_df.count()
 from pyspark.sql.functions import to_date
 src_df.groupBy(to_date('created_at').alias('created_at')).count().show()
 
-tgt_file_path = f's3://aigithub/emrraw/ghactivity'
+tgt_file_path = f's3://tianchi-emr-test-bucket/aigithub/emrraw/ghactivity'
 tgt_df = spark.read.parquet(tgt_file_path)
 tgt_df.printSchema()
 tgt_df.show()

@@ -8,3 +8,4 @@ data.zip
 .DS_Store
 archive
 airflow
+__pycache__/

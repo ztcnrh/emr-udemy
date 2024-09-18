@@ -52,10 +52,10 @@ aws s3 rm s3://aigithub/emrraw/ghactivity \
 
 ```
 export ENVIRON=DEV
-export SRC_DIR=s3://aigithub/landing/ghactivity
+export SRC_DIR=s3://tianchi-emr-test-bucket/aigithub/landing/ghactivity
 export SRC_FILE_PATTERN=2021-01-13
 export SRC_FILE_FORMAT=json
-export TGT_DIR=s3://aigithub/emrraw/ghactivity
+export TGT_DIR=s3://tianchi-emr-test-bucket/aigithub/emrraw/ghactivity
 export TGT_FILE_FORMAT=parquet
 
 spark-submit \
@@ -65,14 +65,14 @@ spark-submit \
 * Check for files in the target location. 
 
 ```shell script
-aws s3 ls s3://aigithub/emrraw/ghactivity \
+aws s3 ls s3://tianchi-emr-test-bucket/aigithub/emrraw/ghactivity \
     --recursive
 ```
 
 * Run below code using pyspark CLI.
 
 ```python
-file_path = 's3://aigithub/raw/ghactivity'
+file_path = 's3://tianchi-emr-test-bucket/aigithub/emrraw/ghactivity'
 df = spark.read.parquet(file_path)
 df.printSchema()
 df.show()
